@@ -134,15 +134,24 @@ small {
   pointer-events: none;
 }
 
+.step {
+  opacity: 0;
+  pointer-events: none; /* Prevent interaction during fade-out */
+  transition: opacity 0.5s ease-in-out;
+  display: none; /* Start hidden */
+}
+
 .step.active {
-  display: block;
+  opacity: 1;
+  pointer-events: auto; /* Allow interaction during fade-in */
+  display: block; /* Ensure the active step is shown */
 }
 
 .spinner {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, #ffffff 94%, rgba(0, 0, 0, 0)) top/6px 6px no-repeat, conic-gradient(rgba(0, 0, 0, 0) 30%, #ffffff);
+  background: radial-gradient(farthest-side, #341147 94%, rgba(0, 0, 0, 0)) top/6px 6px no-repeat, conic-gradient(rgba(0, 0, 0, 0) 30%, #341147);
   -webkit-mask: radial-gradient(farthest-side, rgba(0, 0, 0, 0) calc(100% - 6px), #000 0);
   animation: spinner-c7wet2 1s infinite linear;
   display: none;
@@ -157,14 +166,15 @@ small {
     transform: translate(-50%, -50%) rotate(1turn);
   }
 }
-#formSubmit {
+#nextButton {
   position: relative;
-  min-height: 61px;
+  min-height: 51px;
+  min-width: 115px;
 }
-#formSubmit.loading .spinner {
+#nextButton.loading .spinner {
   display: block !important;
 }
-#formSubmit.loading .text {
+#nextButton.loading .text {
   display: none !important;
 }
 

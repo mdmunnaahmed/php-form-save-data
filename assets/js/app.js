@@ -40,7 +40,7 @@ let timeLabel = document.getElementById("base-timer-label");
 const nextButton = document.getElementById("nextButton");
 
 //Time related vars
-const TIME_LIMIT = 11; //in seconds
+const TIME_LIMIT = 10; //in seconds
 let timePassed = -1;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;

