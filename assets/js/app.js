@@ -3,8 +3,8 @@
 // pre form
 document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("button01");
-  const longText = document.getElementById("long-text1");
-  const contentArea = document.getElementById("content-area");
+  const longText = document.getElementById("long-text3");
+  const contentArea = document.getElementById("form-wrapper-two");
   const form = document.getElementById("form-wrapper");
 
   let clickCount = 0;
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   button.addEventListener("click", () => {
     if (clickCount === 0) {
       button.textContent = "Bekreft"; // Change button text
-      longText.textContent = "Denne nedlastingen inneholder vokseninnhold. For å laste den ned, må du bekrefte at du er 18 år eller eldre.";
+      longText.style.display = 'block'
       clickCount++;
     } else if (clickCount === 1) {
       form.style.display = "block";

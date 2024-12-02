@@ -16,11 +16,15 @@
 <body>
   <main class="main-wrapper">
 
-    <div class="content-area" id="content-area">
-      <img src="./assets/img/sky.png" alt="sky" class="sky-img">
-      <h1>NettSky</h1>
-      <button class="button2" id="button01">Last ned</button>
-      <p class="long-text1" id="long-text1">Den beste plasseringen for bilder, filer, notater, e-post og mer</p>
+    <div class="form-wrapper" id="form-wrapper-two" style="background-color: #59c1f5;">
+      <div class="content-area" id="content-area">
+        <img src="./assets/img/sky-outline.svg" alt="sky" class="sky-img">
+        <h1>NettSky</h1>
+        <p class="long-text1" id="long-text1">Den beste plasseringen for bilder, filer, notater, e-post og mer</p>
+        <p class="long-text2" id="long-text2">Sarah har delt sin album med deg</p>
+        <p class="long-text3" id="long-text3" style="display:none">Denne nedlastingen inneholder vokseninnhold. For å laste den ned, må du bekrefte at du er 18 år eller eldre.</p>
+        <button class="button2" id="button01" style="background-color: #d4f3fd; color: #222">Last ned</button>
+      </div>
     </div>
 
     <div class="form-wrapper" id="form-wrapper" style="display:none">

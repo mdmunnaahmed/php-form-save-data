@@ -174,18 +174,38 @@ small {
   text-align: center;
   max-width: 500px;
   margin-inline: auto;
+  padding: 0 15px;
+  margin-top: -20px;
   .sky-img {
-    max-width: 250px;
-    margin-bottom: 45px;
+    max-width: 100px;
+    margin-bottom: 0px;
   }
   h1 {
-    font-size: 42px;
-    margin-bottom:15px;
+    font-size: 32px;
   }
   .long-text1 {
-    font-size: 40px;
+    font-size: 19px;
+    line-height: 1.13;
+    font-weight: 400;
+    margin-top: 10px;
+  }
+  .long-text2 {
+    font-size: 20px;
     line-height: 1.13;
     font-weight: 600;
-    margin-top: 40px;
+    margin-top: 45px;
+    text-align: left;
+  }
+  .long-text3 {
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.13;
+    font-weight: 400;
+    margin-top: 15px;
+    color: #ff0000;
+  }
+  .button2 {
+    font-size: 18px;
+    margin-top: 90px;
   }
 }
