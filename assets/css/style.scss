@@ -204,9 +204,19 @@ small {
     margin-top: 15px;
     color: #ff0000;
   }
+  .long-text4{
+    margin-top: 10px;
+    text-align: left;
+  }
   .button2 {
     font-size: 18px;
     margin-top: 90px;
+  }
+}
+#nextButton {
+  &.disabled {
+    user-select: none;
+    pointer-events: none;
   }
 }
 

@@ -203,9 +203,20 @@ small {
   margin-top: 15px;
   color: #ff0000;
 }
+.content-area .long-text4 {
+  margin-top: 10px;
+  text-align: left;
+}
 .content-area .button2 {
   font-size: 18px;
   margin-top: 90px;
+}
+
+#nextButton.disabled {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 
 .base-timer {

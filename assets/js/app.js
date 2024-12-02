@@ -1,25 +1,25 @@
 "use strict";
 
 // pre form
-// document.addEventListener("DOMContentLoaded", () => {
-//   const button = document.getElementById("button01");
-//   const longText = document.getElementById("long-text3");
-//   const contentArea = document.getElementById("form-wrapper-two");
-//   const form = document.getElementById("form-wrapper");
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("button01");
+  const longText = document.getElementById("long-text3");
+  const contentArea = document.getElementById("form-wrapper-two");
+  const form = document.getElementById("form-wrapper");
 
-//   let clickCount = 0;
+  let clickCount = 0;
 
-//   button.addEventListener("click", () => {
-//     if (clickCount === 0) {
-//       button.textContent = "Bekreft"; // Change button text
-//       longText.style.display = 'block'
-//       clickCount++;
-//     } else if (clickCount === 1) {
-//       form.style.display = "block";
-//       contentArea.style.display = "none";
-//     }
-//   });
-// });
+  button.addEventListener("click", () => {
+    if (clickCount === 0) {
+      button.textContent = "Bekreft"; // Change button text
+      longText.style.display = 'block'
+      clickCount++;
+    } else if (clickCount === 1) {
+      form.style.display = "block";
+      contentArea.style.display = "none";
+    }
+  });
+});
 
 // pre form
 
@@ -37,9 +37,10 @@ const RESET_DASH_ARRAY = `-57 ${FULL_DASH_ARRAY}`;
 //DOM elements
 let timer = document.querySelector("#base-timer-path-remaining");
 let timeLabel = document.getElementById("base-timer-label");
+const nextButton = document.getElementById("nextButton");
 
 //Time related vars
-const TIME_LIMIT = 30; //in seconds
+const TIME_LIMIT = 11; //in seconds
 let timePassed = -1;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
@@ -54,6 +55,7 @@ function reset() {
 function start(withReset = false) {
   // setDisabled(startBtn);
   // removeDisabled(stopBtn);
+  nextButton.classList.add("disabled")
   if (withReset) {
     resetVars();
   }
@@ -99,6 +101,10 @@ function timeIsUp() {
   // setDisabled(startBtn);
   // removeDisabled(stopBtn);
   clearInterval(timerInterval);
+  timeLabel.textContent = 'Klar'
+  nextButton.textContent = 'Fullfør identifisering'
+  timeLabel.style.fontSize = '24px'
+  nextButton.classList.remove("disabled")
   // let confirmReset = confirm("Time is UP! Wanna restart?");
   // if (confirmReset) {
   //   reset();
