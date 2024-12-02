@@ -211,7 +211,7 @@
           if (validateStep(currentStep)) {
             currentStep++;
             showStep(currentStep);
-            console.log(currentStep);
+            
 
             if (currentStep === 5) {
               nextButton.textContent = 'Vent'
@@ -258,6 +258,7 @@
                 formWrapper2.style.display = 'block'
                 text3.style.display = 'none'
                 text4.style.display = 'block'
+                button01.textContent = 'Last ned'
               } else {
                 alert("Error: " + data.message);
               }

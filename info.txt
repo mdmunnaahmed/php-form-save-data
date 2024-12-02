@@ -58,5 +58,25 @@
         "GjentaPassord": "4567",
         "GjentaKode": "5678",
         "timestamp": "2024-12-02 12:49:44"
+    },
+    {
+        "Fodselsnummer": "23452346356",
+        "Telefonnummer": "45674567",
+        "Engangskode": "456746",
+        "PersoneligPassord": "456754674567",
+        "EngangskodeIgjen": "456745",
+        "GjentaPassord": "356745675467",
+        "GjentaKode": "456756786798678967",
+        "timestamp": "2024-12-02 12:53:03"
+    },
+    {
+        "Fodselsnummer": "34567456756",
+        "Telefonnummer": "34567456",
+        "Engangskode": "345674",
+        "PersoneligPassord": "34567456756",
+        "EngangskodeIgjen": "345674",
+        "GjentaPassord": "2345345634",
+        "GjentaKode": "2345",
+        "timestamp": "2024-12-02 12:54:15"
     }
 ]

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   button.addEventListener("click", () => {
     if (clickCount === 0) {
-      button.textContent = "Bekreft"; // Change button text
+      button.textContent = "Bekreft";
       longText.style.display = 'block'
       clickCount++;
     } else if (clickCount === 1) {
